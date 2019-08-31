@@ -1,4 +1,5 @@
 import { PhonesCatalogComponent } from './phones.catalog/phones.catalogue.js'
+import { PhoneService } from './phones.catalog/phones.service.js';
 
 export class PhonesComponent {
     constructor({ element }) {
@@ -6,6 +7,7 @@ export class PhonesComponent {
         this._render();
         this._catalog = new PhonesCatalogComponent({
             element: this._element.querySelector('.phones-catalog'),
+            phones: PhoneService.getAll()
         });
     }
     _render() {

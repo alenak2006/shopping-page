@@ -1,5 +1,7 @@
-import { PhonesCatalogComponent } from './phones.catalog/phones.catalogue.js'
-import { PhoneService } from './phones.catalog/phones.service.js';
+import { PhonesCatalogComponent } from './phones.catalog/phones-catalogue.component.js'
+import { PhonesDetailsComponent } from './phone.details/phone-details.component.js'
+import { PhoneService } from './phones.service.js';
+
 
 export class PhonesComponent {
     constructor({ element }) {
@@ -9,6 +11,9 @@ export class PhonesComponent {
             element: this._element.querySelector('.phones-catalog'),
             phones: PhoneService.getAll()
         });
+        this._details = new PhonesDetailsComponent({
+            element: this._element.querySelector('.phone-details')
+        })
     }
     _render() {
         this._element.innerHTML = `
@@ -44,5 +49,4 @@ export class PhonesComponent {
         </div>
     </div>`
     }
-
 }

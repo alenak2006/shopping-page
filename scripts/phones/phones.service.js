@@ -157,10 +157,10 @@ const mockPhones = [
 export const PhoneService = new class {
     getAll() {
         //http
-        return mockPhones.slice(0, 4);
+        return mockPhones;
     }
 
-    getOneById(id) {
-        return {}
+    getOneById(phoneId) {
+        return mockPhones.find((phone) => { return phone.id === phoneId });
     }
 }

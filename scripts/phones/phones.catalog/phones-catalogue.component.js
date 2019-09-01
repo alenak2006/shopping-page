@@ -1,14 +1,17 @@
-export class PhonesCatalogComponent {
-  constructor({ element, phones }) {
-    this._element = element;
+import { BaseComponent } from '../../shared/components/base.component.js'
+
+export class PhonesCatalogComponent extends BaseComponent {
+  constructor({ element, phones, onPhoneSelect }) {
+    super({ element });
     this._phones = phones;
+    this._onPhoneSelect = onPhoneSelect;
     this._render();
     this._element.addEventListener('click', (e) => {
       let phoneElement = e.target.closest('.phone');
       if (!phoneElement) {
         return;
       }
-      console.log(phoneElement.dataset.phoneId);
+      this._onPhoneSelect(phoneElement.dataset.phoneId);
     })
   }
   _render() {

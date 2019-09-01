@@ -1,23 +1,20 @@
-export class PhonesDetailsComponent {
-  constructor({ element }) {
-    this._element = element;
-    this._render();
-  }
-  _render() {
-    this._element.innerHTML = `
-        <div>
+import { BaseComponent } from '../../shared/components/base.component.js'
 
-        <img class="phone" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+export class PhonesDetailsComponent extends BaseComponent {
+    show(phone) {
+        this._phone = phone;
+        this._render();
+        super.show();
+    }
+    _render() {
+        this._element.innerHTML = `
+        <div>
+        <img class="phone" src="${this._phone.imageUrl}">
 
         <button>Back</button>
         <button>Add to basket</button>
-
-        <h1>Motorola XOOM™ with Wi-Fi</h1>
-
-        <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the
-            Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll
-            enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
-
+        <h1>${this._phone.name}</h1>
+        <p>${this._phone.snippet}</p>
         <ul class="phone-thumbs">
             <li>
                 <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
@@ -41,5 +38,5 @@ export class PhonesDetailsComponent {
 
         
     </div>`
-  }
+    }
 }

@@ -9,10 +9,16 @@ export class PhonesComponent {
         this._render();
         this._catalog = new PhonesCatalogComponent({
             element: this._element.querySelector('.phones-catalog'),
-            phones: PhoneService.getAll()
+            phones: PhoneService.getAll(),
+            onPhoneSelect: (phoneId) => {
+                const phonesDetails = PhoneService.getOneById(phoneId);
+                this._catalog.hide();
+                this._details.show(phonesDetails);
+            }
         });
         this._details = new PhonesDetailsComponent({
-            element: this._element.querySelector('.phone-details')
+            element: this._element.querySelector('.phone-details'),
+            // phone: PhoneService.getOneById()
         })
     }
     _render() {

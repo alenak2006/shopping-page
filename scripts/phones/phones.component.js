@@ -18,7 +18,11 @@ export class PhonesComponent {
         });
         this._details = new PhonesDetailsComponent({
             element: this._element.querySelector('.phone-details'),
-            // phone: PhoneService.getOneById()
+            onBackSelect: () => {
+                const phones = PhoneService.getAll();
+                this._details.hide();
+                this._catalog.show(phones);
+            }
         })
     }
     _render() {

@@ -1,9 +1,19 @@
 import { BaseComponent } from '../../shared/components/base.component.js'
 
 export class PhonesDetailsComponent extends BaseComponent {
-    hide() {
-        super.hide();
+    constructor({ element, onBackSelect }) {
+        super({ element });
+        this._onBackSelect = onBackSelect;
+        this._element.addEventListener('click', (e) => {
+            let phoneElement = e.target.closest('.back');
+            if (!phoneElement) {
+                return;
+            }
+            this._onBackSelect();
+        })
+
     }
+
     show(phone) {
         this._phone = phone;
         this._render();
@@ -15,7 +25,7 @@ export class PhonesDetailsComponent extends BaseComponent {
         <div>
         <img class="phone" src="${this._phone.imageUrl}">
 
-        <button id = "back" >Back</button>
+        <button class = "back" >Back</button>
         <button>Add to basket</button>
         <h1>${this._phone.name}</h1>
         <p>${this._phone.snippet}</p>

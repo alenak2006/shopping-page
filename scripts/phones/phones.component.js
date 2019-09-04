@@ -1,6 +1,7 @@
 import { PhonesCatalogComponent } from './phones.catalog/phones-catalogue.component.js'
 import { PhonesDetailsComponent } from './phone.details/phone-details.component.js'
 import { PhoneService } from './phones.service.js';
+import { CartComponent } from './cart/cart.component.js';
 
 
 export class PhonesComponent {
@@ -31,13 +32,7 @@ export class PhonesComponent {
                     </select>
                 </p>
             </section>
-            <section>
-                <p>Shopping Cart</p>
-                <ul>
-                    <li>Phone 1</li>
-                    <li>Phone 2</li>
-                    <li>Phone 3</li>
-                </ul>
+            <section class = "cart">
             </section>
         </div>
         <!--Main content-->
@@ -53,6 +48,7 @@ export class PhonesComponent {
             element: this._element.querySelector('.phones-catalog'),
             phones: PhoneService.getAll(),
             onPhoneSelect: (phoneId) => {
+                this._phoneId = phoneId;
                 const phonesDetails = PhoneService.getOneById(phoneId);
                 this._catalog.hide();
                 this._details.show(phonesDetails);
@@ -66,11 +62,18 @@ export class PhonesComponent {
             onBack: () => {
                 this._catalog.show();
                 this._details.hide();
+            },
+
+            onAdd: (phoneId) => {
+                this._cart.add(this._phoneId);
             }
         })
 
     }
     _initCart() {
+        this._cart = new CartComponent({
+            element: this._element.querySelector('.cart'),
+        });
 
     }
 }

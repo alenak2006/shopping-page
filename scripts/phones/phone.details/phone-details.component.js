@@ -1,15 +1,15 @@
 import { BaseComponent } from '../../shared/components/base.component.js'
 
 export class PhonesDetailsComponent extends BaseComponent {
-    constructor({ element, onBackSelect }) {
+    constructor({ element, onBack }) {
         super({ element });
-        this._onBackSelect = onBackSelect;
+        this._onBack = onBack;
         this._element.addEventListener('click', (e) => {
-            let phoneElement = e.target.closest('.back');
-            if (!phoneElement) {
+            let backButton = e.target.closest('.back');
+            if (!backButton) {
                 return;
             }
-            this._onBackSelect();
+            this._onBack();
         })
 
     }
@@ -17,37 +17,28 @@ export class PhonesDetailsComponent extends BaseComponent {
     show(phone) {
         this._phone = phone;
         this._render();
+        this._currentImage = this._element.querySelector('.phone');
+        [this._currentImage.src] = this._phone.images;
         super.show();
 
     }
     _render() {
+        const { name, description, images } = this._phone;
+        console.log(images);
         this._element.innerHTML = `
         <div>
-        <img class="phone" src="${this._phone.imageUrl}">
+        <img class="phone">
 
         <button class = "back" >Back</button>
         <button>Add to basket</button>
-        <h1>${this._phone.name}</h1>
-        <p>${this._phone.snippet}</p>
+        <h1>${name}</h1>
+        <p>${description} </p>
         <ul class="phone-thumbs">
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
-            </li>
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.1.jpg">
-            </li>
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.2.jpg">
-            </li>
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.3.jpg">
-            </li>
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.4.jpg">
-            </li>
-            <li>
-                <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg">
-            </li>
+        ${images.map((src) =>
+            `<li>
+                <img src=${src}>
+            </li>`
+        ).join('')}
         </ul>
 
         

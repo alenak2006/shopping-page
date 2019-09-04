@@ -7,23 +7,11 @@ export class PhonesComponent {
     constructor({ element }) {
         this._element = element;
         this._render();
-        this._catalog = new PhonesCatalogComponent({
-            element: this._element.querySelector('.phones-catalog'),
-            phones: PhoneService.getAll(),
-            onPhoneSelect: (phoneId) => {
-                const phonesDetails = PhoneService.getOneById(phoneId);
-                this._catalog.hide();
-                this._details.show(phonesDetails);
-            }
-        });
-        this._details = new PhonesDetailsComponent({
-            element: this._element.querySelector('.phone-details'),
-            onBackSelect: () => {
-                const phones = PhoneService.getAll();
-                this._details.hide();
-                this._catalog.show(phones);
-            }
-        })
+        this._initCatalog();
+        this._initDetails();
+        this._initCart();
+
+
     }
     _render() {
         this._element.innerHTML = `
@@ -58,5 +46,31 @@ export class PhonesComponent {
             <div class="phone-details"></div>
         </div>
     </div>`
+    }
+
+    _initCatalog() {
+        this._catalog = new PhonesCatalogComponent({
+            element: this._element.querySelector('.phones-catalog'),
+            phones: PhoneService.getAll(),
+            onPhoneSelect: (phoneId) => {
+                const phonesDetails = PhoneService.getOneById(phoneId);
+                this._catalog.hide();
+                this._details.show(phonesDetails);
+            }
+        });
+    }
+    _initDetails() {
+
+        this._details = new PhonesDetailsComponent({
+            element: this._element.querySelector('.phone-details'),
+            onBack: () => {
+                this._catalog.show();
+                this._details.hide();
+            }
+        })
+
+    }
+    _initCart() {
+
     }
 }

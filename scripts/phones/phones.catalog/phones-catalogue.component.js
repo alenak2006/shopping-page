@@ -15,11 +15,6 @@ export class PhonesCatalogComponent extends BaseComponent {
     })
   }
 
-  show(phones) {
-    this._phones = phones;
-    this._render();
-    super.show();
-  }
   _render() {
     this._element.innerHTML = `
         <ul class="phones">

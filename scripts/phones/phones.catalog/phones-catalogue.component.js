@@ -1,10 +1,12 @@
 import { BaseComponent } from '../../shared/components/base.component.js'
+import { PhoneService } from '../phones.service.js';
+
+//export const phones = PhoneService.getAll();
 
 export class PhonesCatalogComponent extends BaseComponent {
-  constructor({ element, phones }) {
+  constructor({ element }) {
     super({ element });
-    this._phones = phones;
-    this._render();
+    this._phones = [];
     this.on('click', '.phone', (e) => {
       this.emitEvent('phone-select', e.delegateTarget.dataset.phoneId);
     })
@@ -14,6 +16,12 @@ export class PhonesCatalogComponent extends BaseComponent {
 
 
     })
+  }
+
+  show(phones) {
+    this._phones = phones;
+    this._render();
+    super.show();
   }
 
   _render() {

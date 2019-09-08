@@ -2,6 +2,7 @@ import { PhonesCatalogComponent } from './phones.catalog/phones-catalogue.compon
 import { PhonesDetailsComponent } from './phone.details/phone-details.component.js'
 import { PhoneService } from './phones.service.js';
 import { CartComponent } from './cart/cart.component.js';
+import { FilterComponent } from './filter/filter.component.js';
 
 
 export class PhonesComponent {
@@ -11,6 +12,7 @@ export class PhonesComponent {
         this._initCatalog();
         this._initDetails();
         this._initCart();
+        this._initFilter();
 
 
     }
@@ -19,18 +21,8 @@ export class PhonesComponent {
             <div class="row">
         <!--Sidebar-->
         <div class="col-md-2">
-            <section>
-                <p>
-                    Search:
-                    <input>
-                </p>
-                <p>
-                    Sort by:
-                    <select>
-                        <option value="name">Alphabetical</option>
-                        <option value="age">Newest</option>
-                    </select>
-                </p>
+            <section class = "phones-filter">
+               
             </section>
             <section class = "cart">
             </section>
@@ -46,9 +38,9 @@ export class PhonesComponent {
     _initCatalog() {
         this._catalog = new PhonesCatalogComponent({
             element: this._element.querySelector('.phones-catalog'),
-            phones: PhoneService.getAll(),
-
         });
+
+        this._showFilteredPhones();
         this._catalog.onEvent('phone-select', ({ detail: phoneId }) => {
             this._phoneId = phoneId;
             const phonesDetails = PhoneService.getOneById(phoneId);
@@ -70,7 +62,7 @@ export class PhonesComponent {
 
 
         this._details.onEvent('back', () => {
-            this._catalog.show();
+            this._showFilteredPhones();
             this._details.hide();
         })
         this._details.onEvent('add-to-cart', ({ detail: phoneId }) => {
@@ -87,4 +79,28 @@ export class PhonesComponent {
         });
 
     }
+
+    _initFilter() {
+        this._filter = new FilterComponent({
+            element: this._element.querySelector(".phones-filter")
+        })
+
+        this._filter.onEvent('search', ({ detail: text }) => {
+            this.text = text
+            this._showFilteredPhones();
+        })
+
+        this._filter.onEvent('change-order', ({ detail: orderBy }) => {
+            this.orderBy = orderBy;
+            this._showFilteredPhones();
+        })
+    }
+
+    _showFilteredPhones() {
+        PhoneService.getAll({ text: this.text, orderBy: this.orderBy })
+            .then((phones) => this._catalog.show(phones));
+
+    }
 }
+
+//

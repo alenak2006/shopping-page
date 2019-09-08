@@ -30,7 +30,6 @@ export class BaseComponent {
 
     emitEvent(eventName, details) {
         const event = new CustomEvent(eventName, { detail: details });
-        console.log(this._element);
         this._element.dispatchEvent(event);
     }
 

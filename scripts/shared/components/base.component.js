@@ -12,4 +12,26 @@ export class BaseComponent {
         this._element.hidden = true;
     }
 
+    on(eventName, selector, handler) {
+        this._element.addEventListener(eventName, (e) => {
+            const el = e.target.closest(selector);
+            if (!el) {
+                return;
+            }
+            e.delegateTarget = el;
+            handler(e);
+
+        })
+    }
+
+    onEvent(eventName, cb) {
+        this._element.addEventListener(eventName, cb)
+    }
+
+    emitEvent(eventName, details) {
+        const event = new CustomEvent(eventName, { detail: details });
+        console.log(this._element);
+        this._element.dispatchEvent(event);
+    }
+
 }

@@ -47,27 +47,38 @@ export class PhonesComponent {
         this._catalog = new PhonesCatalogComponent({
             element: this._element.querySelector('.phones-catalog'),
             phones: PhoneService.getAll(),
-            onPhoneSelect: (phoneId) => {
-                this._phoneId = phoneId;
-                const phonesDetails = PhoneService.getOneById(phoneId);
-                this._catalog.hide();
-                this._details.show(phonesDetails);
-            }
+
         });
+        this._catalog.onEvent('phone-select', ({ detail: phoneId }) => {
+            this._phoneId = phoneId;
+            const phonesDetails = PhoneService.getOneById(phoneId);
+            this._catalog.hide();
+            this._details.show(phonesDetails);
+        });
+
+        this._catalog.onEvent('add-to-cart', ({ detail: phoneId }) => {
+            this._cart.add(phoneId);
+        })
     }
     _initDetails() {
 
-        this._details = new PhonesDetailsComponent({
-            element: this._element.querySelector('.phone-details'),
-            onBack: () => {
-                this._catalog.show();
-                this._details.hide();
-            },
 
-            onAdd: (phoneId) => {
-                this._cart.add(this._phoneId);
-            }
+
+        this._details = new PhonesDetailsComponent({
+            element: this._element.querySelector('.phone-details')
+        });
+
+
+        this._details.onEvent('back', () => {
+            this._catalog.show();
+            this._details.hide();
         })
+        this._details.onEvent('add-to-cart', ({ detail: phoneId }) => {
+            this._cart.add(phoneId);
+        })
+
+
+
 
     }
     _initCart() {

@@ -45,6 +45,7 @@ export class PhonesComponent {
             this._phoneId = phoneId;
             const phonesDetails = PhoneService.getOneById(phoneId);
             this._catalog.hide();
+            this._filter.hide();
             this._details.show(phonesDetails);
         });
 
@@ -64,6 +65,7 @@ export class PhonesComponent {
         this._details.onEvent('back', () => {
             this._showFilteredPhones();
             this._details.hide();
+            this._filter.show();
         })
         this._details.onEvent('add-to-cart', ({ detail: phoneId }) => {
             this._cart.add(phoneId);

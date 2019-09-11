@@ -221,7 +221,7 @@ const phone1 = {
 
 
 export const PhoneService = new class {
-    getAll({ text, orderBy } = {}, cb) {
+    getAll({ text, orderBy } = {}) {
 
         return new Promise((res, rej) => {
             setTimeout(() => {

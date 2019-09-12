@@ -228,14 +228,22 @@ export const PhoneService = new class {
                 const searchedPhones = this._filter(mockPhones, text);
                 const sortedPhones = this._sort(searchedPhones, orderBy);
                 res(sortedPhones);
-            }, 2000)
+            }, 1000)
 
         })
     }
 
     getOneById(phoneId) {
-        //http
-        return phone1;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `http://localhost:3000/phones/${phoneId}.json`, false);
+        xhr.send();
+        console.log(xhr);
+        console.log('xhr.status', xhr.status);
+        console.log('xhr.resposeText', xhr.responseText);
+        if (xhr.status !== 200) {
+            console.log(xhr.status, xhr.statusText);
+        }
+        return JSON.parse(xhr.responseText);
     }
 
     _filter(phones, text) {

@@ -41,12 +41,27 @@ export class PhonesComponent {
         });
 
         this._showFilteredPhones();
-        this._catalog.onEvent('phone-select', ({ detail: phoneId }) => {
-            this._phoneId = phoneId;
-            const phonesDetails = PhoneService.getOneById(phoneId);
-            this._catalog.hide();
-            this._filter.hide();
-            this._details.show(phonesDetails);
+        this._catalog.onEvent('phone-select', async ({ detail: phoneId }) => {
+            try {
+                this._phoneId = phoneId;
+                const phoneDetails = await PhoneService.getOneById(phoneId);
+                this._catalog.hide();
+                this._filter.hide();
+                this._details.show(phoneDetails);
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+
+            // PhoneService.getOneById(phoneId)
+            //     .then((phonesDetails) => {
+            //         this._catalog.hide();
+            //         this._filter.hide();
+            //         this._details.show(phonesDetails);
+            //     })
+            //     .catch ((err) => { console.log(err); });
+
         });
 
         this._catalog.onEvent('add-to-cart', ({ detail: phoneId }) => {

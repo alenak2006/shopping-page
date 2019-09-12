@@ -234,16 +234,18 @@ export const PhoneService = new class {
     }
 
     getOneById(phoneId) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', `http://localhost:3000/phones/${phoneId}.json`, false);
-        xhr.send();
-        console.log(xhr);
-        console.log('xhr.status', xhr.status);
-        console.log('xhr.resposeText', xhr.responseText);
-        if (xhr.status !== 200) {
-            console.log(xhr.status, xhr.statusText);
-        }
-        return JSON.parse(xhr.responseText);
+        return new Promise((res, rej) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:3000/phones/${phoneId}.json`);
+            xhr.send();
+            xhr.addEventListener('load', () => {
+                if (xhr.status !== 200) {
+                    rej(xhr.statusText);
+                }
+                res(JSON.parse(xhr.responseText));
+
+            })
+        })
     }
 
     _filter(phones, text) {

@@ -18,17 +18,18 @@ export class PhonesComponent {
     }
     _render() {
         this._element.innerHTML = `
-            <div class="row">
+   <div class = "phones-filter">
+   </div>
+
+        <div class="row">
         <!--Sidebar-->
         <div class="col-md-2">
-            <section class = "phones-filter">
-               
-            </section>
+            
             <section class = "cart">
             </section>
         </div>
         <!--Main content-->
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="phones-catalog"></div>
             <div class="phone-details"></div>
         </div>

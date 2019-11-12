@@ -31,13 +31,12 @@ export class CartComponent extends BaseComponent {
 
     _render() {
         this._element.innerHTML = `
-        <p>Shopping Cart</p>
-        <ul>
+        <h4>Shopping Cart</h4>
+        <ul class="list-group">
         ${Object.entries(this._phones).map(([phoneId, count]) => {
-            return `<li>${phoneId} - ${count}</li>
-            <button class= "remove" data-phone-id = ${phoneId}>X</button>`
+            return `<li class="list-group-item">${phoneId}<span class="badge badge-primary badge-pill">${count}</span></li>
+            <button class= "remove btn btn-secondary" data-phone-id = ${phoneId}>X</button>`
         }).join('')}
-
         </ul>
 `
     }

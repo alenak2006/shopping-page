@@ -13,18 +13,23 @@ export class FilterComponent extends BaseComponent {
     }
 
     _render() {
-        this._element.innerHTML = ` 
-    <p>
-    Search:
-    <input class="search">
-    </p>
-    <p>
-    Sort by:
-        <select class = "sort">
-            <option value="name">Alphabetical</option>
-            <option value="age">Newest</option>
-        </select>
-    </p>`
+        this._element.innerHTML = `
+<div class= "row">
+<div class="col-md-2">
+</div>
+<div class="col-md-3">
+    <select class="form-control sort" placeholder="Sort By..">
+    <option selected>Sort By...</option>   
+    <option value="name">Alphabetical</option>
+    <option value="age">Newest</option>
+  </select>
+</div>
+<div class="col-md-1">
+</div>
+<div class="input-group col-md-3">
+    <input type="text" class="form-control search" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+</div>
+</div>`
     }
 
 }

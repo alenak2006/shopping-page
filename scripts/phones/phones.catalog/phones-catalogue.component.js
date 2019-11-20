@@ -26,15 +26,15 @@ export class PhonesCatalogComponent extends BaseComponent {
 
   _render() {
     this._element.innerHTML = `
-        <ul class="phones">
+        <ul class="phones list-group">
         ${this._phones.map((phone) => `
-        <li class="thumbnail" data-phone-id ="${phone.id}">
+        <li class="thumbnail list-group-item" data-phone-id ="${phone.id}">
         <a href="#!/phones/${phone.id}" class="thumb">
           <img class = "phone" alt="${phone.name}" src="${phone.imageUrl}" data-phone-id ="${phone.id}">
         </a>
 
         <div class="phones__btn-buy-wrapper add-to-cart" data-phone-id ="${phone.id}">
-          <a class="btn btn-success">
+          <a class="btn btn-primary">
             Add
           </a>
         </div>

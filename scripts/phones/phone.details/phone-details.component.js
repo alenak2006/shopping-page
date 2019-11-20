@@ -29,21 +29,21 @@ export class PhonesDetailsComponent extends BaseComponent {
     _render() {
         const { name, description, images } = this._phone;
         this._element.innerHTML = `
-        <div>
-        <img class="phone">
-        <button class = "back" >Back</button>
-        <button class = "add">Add to basket</button>
-        <h1>${name}</h1>
-        <p>${description} </p>
-        <ul class="phone-thumbs">
-        ${images.map((src) =>
+<button class = "back btn btn-primary" >Back</button>
+<button class = "add btn btn-primary">Add to basket</button>
+<div class="card" style="width: 88rem;">
+  <img class="card-img-top phone" alt="Card image cap">
+  <div class="card-body">
+  <h1>${name}</h1>
+  <p>${description} </p>
+  <ul class="phone-thumbs">
+  ${images.map((src) =>
             `<li>
-                <img src=${src} class = "thumb">
-            </li>`
+          <img src=${src} class = "thumb">
+      </li>`
         ).join('')}
-        </ul>
-
-        
-    </div>`
+  </ul>
+  </div>
+</div>`
     }
 }

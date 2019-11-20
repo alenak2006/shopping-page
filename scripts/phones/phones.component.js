@@ -18,17 +18,18 @@ export class PhonesComponent {
     }
     _render() {
         this._element.innerHTML = `
-            <div class="row">
+   <div class = "phones-filter">
+   </div>
+
+        <div class="row">
         <!--Sidebar-->
         <div class="col-md-2">
-            <section class = "phones-filter">
-               
-            </section>
+            
             <section class = "cart">
             </section>
         </div>
         <!--Main content-->
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="phones-catalog"></div>
             <div class="phone-details"></div>
         </div>
@@ -41,11 +42,27 @@ export class PhonesComponent {
         });
 
         this._showFilteredPhones();
-        this._catalog.onEvent('phone-select', ({ detail: phoneId }) => {
-            this._phoneId = phoneId;
-            const phonesDetails = PhoneService.getOneById(phoneId);
-            this._catalog.hide();
-            this._details.show(phonesDetails);
+        this._catalog.onEvent('phone-select', async ({ detail: phoneId }) => {
+            try {
+                this._phoneId = phoneId;
+                const phoneDetails = await PhoneService.getOneById(phoneId);
+                this._catalog.hide();
+                this._filter.hide();
+                this._details.show(phoneDetails);
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+
+            // PhoneService.getOneById(phoneId)
+            //     .then((phonesDetails) => {
+            //         this._catalog.hide();
+            //         this._filter.hide();
+            //         this._details.show(phonesDetails);
+            //     })
+            //     .catch ((err) => { console.log(err); });
+
         });
 
         this._catalog.onEvent('add-to-cart', ({ detail: phoneId }) => {
@@ -64,6 +81,7 @@ export class PhonesComponent {
         this._details.onEvent('back', () => {
             this._showFilteredPhones();
             this._details.hide();
+            this._filter.show();
         })
         this._details.onEvent('add-to-cart', ({ detail: phoneId }) => {
             this._cart.add(phoneId);

@@ -1,6 +1,6 @@
 body {
     padding-top: 20px;
-    background-color: lightgoldenrodyellow;
+    background-color: rgb(184, 204, 219);
   }
   
   .phone-images {
@@ -37,7 +37,7 @@ body {
     height: 115px;
     padding-top: 15px;
   }
-  
+
   /** Detail View **/
   img.phone {
     float: left;
